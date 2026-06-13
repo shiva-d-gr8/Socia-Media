@@ -9,30 +9,24 @@ import CreatePost, { createPostAction } from './components/CreatePost.jsx';
 import PostList from './components/PostList.jsx';
 import {postLoader} from './components/PostList.jsx';
 
-const router = createHashRouter(
-  [
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        {
-          path: "/",
-          element: <PostList />,
-          loader: postLoader,
-          hydrateFallbackElement: <div />
-        },
-        {
-          path: "/create-post",
-          element: <CreatePost />,
-          action: createPostAction
-        }
-      ]
-    }
-  ],
+const router = createHashRouter([
   {
-    basename: "/Social-Media"
-  }
-);
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <PostList />,
+        loader: postLoader,
+      },
+      {
+        path: "create-post",
+        element: <CreatePost />,
+        action: createPostAction,
+      },
+    ],
+  },
+]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
